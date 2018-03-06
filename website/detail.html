@@ -1,0 +1,238 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>文件盘-文件盘详细信息</title>
+  <meta name="description" content="这是一个 文件盘列表 页面">
+  <meta name="keywords" content="table">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-header am-header-default">
+  <div class="am-header-left am-header-nav">
+    <a href="index.html" class="">
+      <i class="am-header-icon am-icon-angle-left"></i>
+      返回
+    </a>
+  </div>
+  <h1 class="am-header-title">
+    需求文档
+  </h1>
+  <div class="am-header-right am-header-nav">
+    管理员
+  </div>
+</header>
+
+<div class="am-g wj-topbar">
+  <div class="am-u-sm-12">
+    <div class="am-input-group am-input-group-sm">
+      <input type="text" class="am-form-field" placeholder="搜索" />
+      <span class="am-input-group-btn" data-am-dropdown>
+        <button class="am-btn am-icon-th-list am-dropdown-toggle" type="button"></button>
+        <ul class="am-dropdown-content">
+          <li><a href="#">按时间</a></li>
+          <li class="am-active"><a href="#">按文件大小</a></li>
+          <li><a href="#">按名称</a></li>
+        </ul>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="am-cf admin-main wj-main">
+
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+
+      <div data-am-widget="list_news" class="am-list-news am-list-news-default" >
+        <div class="am-list-news-bd">
+          <ul class="am-list">
+              <li class="am-g am-list-item-dated">
+                  <a href="##" class="am-list-item-hd ">
+                    <i class="am-icon-folder am-icon-sm"></i>
+                    我很囧，你保重....晒晒旅行中的那些囧！
+                  </a>
+                  <!-- <span class="am-list-date"><i class="am-icon-ellipsis-h am-icon-sm"></i></span> -->
+              </li>
+              <li class="am-g am-list-item-dated">
+                  <a href="file-detail.html" class="am-list-item-hd ">
+                    <i class="am-icon-file-word-o am-icon-sm"></i> 
+                    Word 文档
+                  </a>
+                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
+                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
+                  </span>
+              </li>
+              <li class="am-g am-list-item-dated">
+                  <a href="file-detail.html" class="am-list-item-hd ">
+                    <i class="am-icon-file-zip-o am-icon-sm"></i> 
+                    中车浦镇车辆厂.rp
+                  </a>
+                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
+                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
+                  </span>
+              </li>
+              <li class="am-g am-list-item-dated">
+                  <a href="file-detail.html" class="am-list-item-hd ">
+                    <i class="am-icon-file-photo-o am-icon-sm"></i> 
+                    “你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！
+                  </a>
+                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
+                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
+                  </span>
+              </li>
+          </ul>
+        </div>
+
+
+        <button type="button" class="am-btn am-btn-success am-btn-block" data-am-modal="{target: '#add-file'}">
+          <i class="am-icon-plus-square am-icon-fw"></i> 
+          新增 文件夹/文件
+        </button>
+      </div>
+
+
+    </div>
+
+  </div>
+  <!-- content end -->
+</div>
+
+<!-- 新增 -->
+<div class="am-modal-actions wj-action" id="add-file">
+  <div class="am-modal-actions-group">
+    <ul class="am-list">
+      <li>
+        <a href="javascript:;" class="am-form-file">
+          <i class="am-icon-upload am-icon-fw"></i> 
+          选择要上传的文件
+          <input id="doc-form-file" name="uploadfile" type="file" multiple>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:;" id="add-folder-btn">
+          <i class="am-icon-plus-square am-icon-fw"></i> 
+          新建文件夹
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="am-modal-actions-group">
+    <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
+  </div>
+</div>
+
+<!-- 新增文件夹 -->
+<div class="am-modal am-modal-prompt" tabindex="-1" id="add-folder">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">新建文件夹名字</div>
+    <div class="am-modal-bd">
+      <input type="text" class="am-modal-prompt-input">
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+    </div>
+  </div>
+</div>
+
+<!-- 文件操作 -->
+<div class="am-modal-actions wj-action" id="file-option">
+  <div class="am-modal-actions-group">
+    <div class="wj-btns am-cf">
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-share am-icon-fw am-text-secondary"></i>
+        <span>转发</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-star am-icon-fw am-text-warning"></i>
+        <span>收藏</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-wechat am-icon-fw am-text-success"></i>
+        <span>微信</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-edit am-icon-fw"></i>
+        <span>重命名</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-trash-o am-icon-fw"></i>
+        <span>删除</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-arrow-circle-right am-icon-fw"></i>
+        <span>移动</span>
+      </a>
+    </div>
+  </div>
+  <div class="am-modal-actions-group">
+    <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
+  </div>
+</div>
+
+<!-- <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a> -->
+
+<footer>
+  
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/upload/h5_upload.js"></script>
+<script type="text/javascript">
+(function($) {
+  'use strict';
+
+  $(function() {
+
+    $('#doc-form-file').on('change', function() {
+      console.log($(this)[0].files);
+      $("#add-file").modal('close'); 
+    });
+    
+    $("#add-folder-btn").on("click", function(){
+      $("#add-file").modal('close');
+      $("#add-folder").modal({
+        relatedTarget: this,
+        onConfirm: function(e) {
+          if(e.data){
+            alert('你输入的是：' + e.data || '');
+          }else{
+            alert('文件夹名字不能为空！');
+          }          
+        },
+        onCancel: function(e) {
+          
+        }
+      });
+    });
+
+  });
+})(jQuery);
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>文件盘-文件详细页</title>
+  <meta name="description" content="这是一个 文件盘列表 页面">
+  <meta name="keywords" content="table">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-header am-header-default">
+  <div class="am-header-left am-header-nav">
+    <a href="detail.html" class="">
+      <i class="am-header-icon am-icon-angle-left"></i>
+      返回
+    </a>
+  </div>
+  <h1 class="am-header-title">
+    中车浦镇车辆厂.rp
+  </h1>
+  <div class="am-header-right am-header-nav">
+    <i class="am-icon-ellipsis-h am-icon-sm" data-am-modal="{target: '#file-option'}"></i>
+  </div>
+</header>
+
+<div class="am-cf admin-main wj-main">
+
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+
+      <div class="file-content">
+        <ul class="file-type am-text-primary">
+          <i class="am-icon-file-zip-o am-icon-lg"></i> 
+        </ul>
+        <ul class="file-name">
+          <h1>中车浦镇车辆厂.rp</h1>
+        </ul>
+        <ul class="file-size am-link-muted">
+          313k
+        </ul>
+
+        <div class="download">
+          <button type="button" class="am-btn am-btn-primary am-btn-block">开始下载</button>
+          <div class="am-margin-vertical-sm am-link-muted">暂不支持查看此类文件，下载后可用其他应用打开</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- content end -->
+</div>
+
+<!-- 新增 -->
+<div class="am-modal-actions wj-action" id="add-file">
+  <div class="am-modal-actions-group">
+    <ul class="am-list">
+      <li>
+        <a href="javascript:;" class="am-form-file">
+          <i class="am-icon-upload am-icon-fw"></i> 
+          选择要上传的文件
+          <input id="doc-form-file" name="uploadfile" type="file" multiple>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:;" id="add-folder-btn">
+          <i class="am-icon-plus-square am-icon-fw"></i> 
+          新建文件夹
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="am-modal-actions-group">
+    <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
+  </div>
+</div>
+
+<!-- 文件操作 -->
+<div class="am-modal-actions wj-action" id="file-option">
+  <div class="am-modal-actions-group">
+    <div class="wj-btns am-cf">
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-share am-icon-fw am-text-secondary"></i>
+        <span>转发</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-star am-icon-fw am-text-warning"></i>
+        <span>收藏</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-wechat am-icon-fw am-text-success"></i>
+        <span>微信</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-edit am-icon-fw"></i>
+        <span>重命名</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-trash-o am-icon-fw"></i>
+        <span>删除</span>
+      </a>
+      <a href="javascript:;" class="am-icon-btn">
+        <i class="am-icon-arrow-circle-right am-icon-fw"></i>
+        <span>移动</span>
+      </a>
+    </div>
+  </div>
+  <div class="am-modal-actions-group">
+    <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
+  </div>
+</div>
+<!-- <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a> -->
+
+<footer>
+  
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script type="text/javascript">
+(function($) {
+  'use strict';
+
+  $(function() {
+    console.log("222");
+  });
+})(jQuery);
+</script>
+</body>
+</html>
