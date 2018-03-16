@@ -40,5 +40,4 @@ func Route(router *gin.Engine) {
 		api.GET("/file/update/:id/:name", file.Update)
 		api.GET("/file/delete/:id", file.Delete)
 	}
-
 }
