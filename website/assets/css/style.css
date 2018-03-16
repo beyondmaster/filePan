@@ -1,0 +1,151 @@
+.wj-topbar{
+	
+}
+.wj-topbar .am-u-sm-12{
+	padding: 10px;
+}
+.wj-main{
+	padding-top: 0;
+}
+.wj-main .am-list-news-default{
+	margin-top: 0;
+}
+.wj-main .am-list{
+	padding-bottom: 4rem;
+}
+.wj-main .am-list .am-list-item-dated a.am-list-item-hd .am-icon-sm{
+	color: #0e90d2;
+	margin-right: 5px;
+}
+.wj-main .am-list .am-list-item-dated a.am-list-item-hd{
+	color: #333;
+	padding-right: 50px;
+}
+.wj-main .am-list .am-list-item-dated a.am-list-date{
+	color: #999;
+	font-size: 1.3rem;
+	padding: 0 0 0 3px;
+	display: inline-block;
+}
+.am-input-group-btn .am-dropdown-content{
+	font-size: 1rem;
+}
+.wj-main .am-panel{
+	margin-bottom: 1.5rem;
+}
+.wj-main .member-list{
+	padding-right: 50px;
+}
+.wj-main .member-list ul{
+	padding: 0;
+}
+.wj-main .member-list li{
+	display: inline-block;
+	text-align: center;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	font-size: 12px;
+	float: left;
+	margin-right: 10px;
+}
+.wj-main .member-list li .am-comment-avatar{
+	float: none;
+}
+.wj-pr{
+	position: relative;
+}
+.wj-main .am-panel .pannel-right-link{
+	position:absolute;
+	right: 1.25rem;
+	top: 1.5rem;
+}
+.wj-main .am-list-item-dated .am-comment-avatar{
+	margin-right: 10px;
+}
+.wj-action .am-modal-actions-group .am-list a{
+	text-align: left;
+	color: #222;
+}
+.wj-action .am-modal-actions-group a.active{
+	color: #0e90d2;
+}
+.wj-action {
+
+}
+.wj-action .am-modal-actions-group a.active:after{
+	display: inline-block; 
+    font: normal normal normal 1.6rem/1 FontAwesome,sans-serif;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0,0);
+    content: "\f00c";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -8px;
+    color: #0e90d2;
+}
+.wj-main .file-content{
+	padding: 6rem 3rem 3rem;
+}
+.wj-main .file-content ul{
+	padding-left: 0;
+}
+.wj-main .download{
+	text-align: center;
+	padding-top: 4rem;
+	font-size: 12px;
+}
+.wj-btns{
+	background: #F0F0F0;
+	padding: 2rem 1rem;
+}
+.wj-btns .wj-icon-btn{	
+	box-sizing: border-box;
+    display: inline-block;
+	color: #666;
+	line-height: 1;
+	font-size: 12px;
+	text-align: center;
+	width: 48px;
+}
+.wj-btns .wj-icon-btn .am-icon-fw{
+	width: 48px;
+	height: 48px;
+	border-radius: 5px;
+	background: #fff;
+	font-size: 24px;
+	line-height: 48px;
+	margin-bottom: 5px;
+	clear: both;
+}
+.wj-btns .wj-icon-btn div{
+	
+}
+
+.wj-main .am-list .am-checkbox{
+	font-size: 16px;
+	line-height: 32px;
+}
+.wj-main .am-list .am-ucheck-icons{
+	line-height: 32px;
+}
+.am-check-avatar{
+	width: 32px;
+	height: 32px;
+	border-radius: 5px;
+	margin: 0 0.5rem;
+}
+.wj-tree-select{
+	background: #fff;
+	text-align: left;
+}
+.wj-tree-select .am-tree{
+	margin-bottom: 0;
+}
+.wj-group-btns .am-btn{
+	width: 48%;
+}
