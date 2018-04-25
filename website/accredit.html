@@ -31,7 +31,6 @@
     </a>
   </div>
   <h1 class="am-header-title">
-    分区信息
   </h1>
 </header>
 
@@ -59,26 +58,14 @@
     <div class="am-panel-bd wj-pr">
       <a href="set-accredit.html" class="am-btn-block">
         <div class="member-list am-cf">
-          <ul>
-            <li>
-              <img src="assets/i/examples/01.jpg" alt="" class="am-comment-avatar" width="48" height="48"/>
-              <figcaption class="am-figure-capition-btm">成员1</figcaption>
-            </li>
-            <li>
-              <img src="assets/i/examples/04.jpg" alt="" class="am-comment-avatar" width="48" height="48"/>
-              <figcaption class="am-figure-capition-btm">成员2</figcaption>
-            </li>
-            <li>
-              <img src="assets/i/examples/03.jpg" alt="" class="am-comment-avatar" width="48" height="48"/>
-              <figcaption class="am-figure-capition-btm">成员3</figcaption>
-            </li>
+          <ul id="member">
           </ul>
         </div>
-        <span class="pannel-right-link">3 <i class="am-fr am-icon-angle-right"></i></span>
+        <span class="pannel-right-link"><span id="totalNum"></span><i class="am-fr am-icon-angle-right"></i></span>
       </a>
     </div>
     <footer class="am-panel-footer">
-      <a href="choose-member.html">
+      <a id="choose" href="choose-member.html">
         <i class="am-icon-plus-square am-icon-fw"></i> 
         选择成员
       </a>
@@ -90,7 +77,7 @@
       <h3 class="am-panel-title">置顶分区</h3>
     </header>
     <div class="am-panel-bd">
-      <input type="checkbox" checked="checked" name="my-checkbox" />
+      <input type="checkbox" name="my-checkbox" />
     </div>
   </section>
 
@@ -105,7 +92,7 @@
   <div class="am-modal-dialog">
     <div class="am-modal-hd">删除分区</div>
     <div class="am-modal-bd">
-      确定删除“需求文档”分区吗？
+      确定删除分区吗？
     </div>
     <div class="am-modal-footer">
       <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -154,15 +141,40 @@
     var r = location.search.substr(1).match(reg); 
     if (r != null) return unescape(decodeURI(r[2])); return null; 
   }
-  var name = getQueryString('name');
   var id = getQueryString('id');
-  if(name) {
-    $('span#name').text(name);
-    $('#edit-folder input').val(name);
-  }
 
   $(function() {
 
+    $('#member').closest('a').attr('href','set-accredit.html?id='+id);
+    $.get('api/partition/info/' + id, function(res) {
+      if (res.errNo == 0) {
+        var name = res.name;
+        $('.am-header-title').text(name);
+        $('span#name').text(name);
+        $('#edit-folder input').val(name);
+        $('[name="my-checkbox"]').attr('checked', res.isTop == 1 ? true : false);
+        $('[name="my-checkbox"]').bootstrapSwitch({
+          onSwitchChange: function(event, state) {
+            $.get('api/partition/top/' + id + '/' + (state ? 1 : 0), function(res) {});
+          }
+        });
+      }
+    });
+    $.get('api/authority/member/'+id,function(res){
+        if(res.errNo == 0){
+        var html='';
+        for(var i in res.data) {
+            html += '<li>'+
+              '<img src="'+res.data[i].avatar+'" alt="" class="am-comment-avatar" width="48" height="48"/>'+
+              '<figcaption class="am-figure-capition-btm">'+res.data[i].name+'</figcaption>'+
+            '</li>';
+        }
+        if(html.length){
+          $('#member').append(html);
+          $('#totalNum').text(res.data.length);
+        }
+      }
+    });
     $('#edit-folder span[data-am-modal-confirm]').click(function(){
         name = $('#edit-folder input').val();
         $.get('api/partition/update/'+id+'/'+name,function(res){
@@ -170,21 +182,14 @@
         });
     });
 
-    $('[name="my-checkbox"]').bootstrapSwitch({
-      onSwitchChange: function(a, b){
-        //选中值
-        console.log(a, b);
-      }
-    });
+    $('#choose').attr('href','choose-member.html?id=' + id);
 
     $("#delete").on("click", function(){
       $('#my-confirm').modal({
         relatedTarget: this,
         onConfirm: function(options) {
-          var id = getQueryString('id');
           //执行删除
           $.get('api/partition/delete/'+id,function(res){
-            // alert("删除分区成功");
             location.href = "index.html";
           });
         },

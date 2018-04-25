@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"unicode/utf8"
 
 	"filePan/utils"
+	"gopkg.in/chanxuehong/wechat.v1/corp"
 )
 
 var jsonData map[string]interface{}
@@ -53,7 +55,7 @@ func initDB() {
 	utils.SetStructByJSON(&DBConfig, jsonData["database"].(map[string]interface{}))
 	var url string
 	if DBConfig.Dialect == "mssql" {
-		url = fmt.Sprintf("sqlserver://%s:%s@%s:%d?database=%s&connection+timeout=30",
+		url = fmt.Sprintf("sqlserver://%s:%s@%s:%d?database=%s&connection+timeout=30&encrypt=disable",
 			DBConfig.User, DBConfig.Password, DBConfig.Host, DBConfig.Port, DBConfig.Database)
 	} else {
 		url = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True&loc=Local",
@@ -80,8 +82,6 @@ func initRedis() {
 }
 
 type serverConfig struct {
-	APIPoweredBy       string
-	SiteName           string
 	Host               string
 	ImgHost            string
 	Env                string
@@ -93,6 +93,7 @@ type serverConfig struct {
 	ImgPath            string
 	MaxMultipartMemory int
 	Port               int
+	FilePort           int
 	TokenSecret        string
 	TokenMaxAge        int
 	PassSalt           string
@@ -140,13 +141,28 @@ func initServer() {
 	ServerConfig.LogFile = ServerConfig.LogDir + ymdStr + ".log"
 
 	if ServerConfig.FilePanDir == "" {
-		ServerConfig.FilePanDir = execPath
+		ServerConfig.FilePanDir = filepath.Join(execPath, "pan")
 	}
+}
+
+type weiXinConfig struct {
+	CorpID  string
+	Secret  string
+	AgentId int
+}
+
+var WeiXinConfig weiXinConfig
+var AccessTokenServer *corp.DefaultAccessTokenServer
+
+func initWeiXin() {
+	utils.SetStructByJSON(&WeiXinConfig, jsonData["weixin"].(map[string]interface{}))
+	AccessTokenServer = corp.NewDefaultAccessTokenServer(WeiXinConfig.CorpID, WeiXinConfig.Secret, nil) // 一個應用只能有一個實例
 }
 
 func init() {
 	initJSON()
 	initDB()
-	initRedis()
+	// initRedis()
 	initServer()
+	initWeiXin()
 }

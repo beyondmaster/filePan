@@ -1,91 +1,107 @@
 package middleware
 
-/*
 import (
-	"errors"
+	"database/sql"
 	"fmt"
+	"net/http"
+	"strings"
 
 	"filePan/config"
-	"filePan/controller/common"
-	"filePan/model"
-	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
 
-func getUser(c *gin.Context) (model.User, error) {
-	var user model.User
-	tokenString, cookieErr := c.Cookie("token")
+func getAuthLevel(c *gin.Context) int {
+	path := c.Request.URL.Path
+	var authLevel int
+	userId, _ := c.Get("userId")
 
-	if cookieErr != nil {
-		return user, errors.New("未登录")
-	}
-
-	token, tokenErr := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+	var id = c.Param("id")
+	var sSql = "select AuthLevel from authority where userId=? and partitionId=?"
+	switch {
+	case path == "/" || path == "/index.html" || path == "/api/partition/list/0":
+		return 1
+	case path == "/accredit.html" || path == "/choose-member.html" || path == "/set-accredit.html":
+		id = c.Query("id")
+	case path == "/detail.html":
+		if c.Query("pid") != "" {
+			id = c.Query("pid")
+		} else if c.Query("fid") != "" {
+			id = c.Query("fid")
+			sSql = "select AuthLevel from authority a left join folder f on a.PartitionId = f.PartitionId where userId=? and f.Id=?"
 		}
-		return []byte(config.ServerConfig.TokenSecret), nil
-	})
-
-	if tokenErr != nil {
-		return user, errors.New("未登录")
-	}
-
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		userID := int(claims["id"].(float64))
-		var err error
-		user, err = model.UserFromRedis(userID)
-		if err != nil {
-			return user, errors.New("未登录")
+	case path == "/file-detail.html":
+		id = c.Query("id")
+		sSql = "select AuthLevel from authority a left join [file] f on a.PartitionId = f.PartitionId where userId=? and f.Id=?"
+	case strings.HasPrefix(path, "/api/partition/list"):
+		return 1
+	case strings.HasPrefix(path, "/api/partition/add"):
+		return 1
+	case strings.HasPrefix(path, "/api/user/list"):
+		return 3
+	case strings.HasPrefix(path, "/api/user/change"):
+		return 3
+	case strings.HasPrefix(path, "/api/folder/tree"):
+		return 1
+	case strings.HasPrefix(path, "/api/folder/add"):
+		id = c.Param("partitionId")
+	case strings.HasPrefix(path, "/api/folder"):
+		sSql = "select AuthLevel from authority a left join folder f on a.PartitionId = f.PartitionId where userId=? and f.Id=?"
+	case path == "/api/file/upload":
+		if c.PostForm("partitionId") != "" {
+			id = c.PostForm("partitionId")
+		} else if c.PostForm("folderId") != "" {
+			id = c.PostForm("folderId")
+			sSql = "select AuthLevel from authority a left join folder f on a.PartitionId = f.PartitionId where userId=? and f.Id=?"
 		}
-		return user, nil
+	case strings.HasPrefix(path, "/api/file"):
+		sSql = "select AuthLevel from authority a left join [file] f on a.PartitionId = f.PartitionId where userId=? and f.Id=?"
+	case strings.HasPrefix(path, "/api/authority/updateMember"):
+		return 3
+	case strings.HasPrefix(path, "/api/authority/updateAuth"):
+		return 3
 	}
-	return user, errors.New("未登录")
+
+	fmt.Println(userId, id)
+	if userId != "" && id != "" {
+		db, _ := sql.Open(config.DBConfig.Dialect, config.DBConfig.URL)
+		defer db.Close()
+
+		row := db.QueryRow(sSql, userId, id)
+		row.Scan(&authLevel)
+	}
+
+	return authLevel
 }
 
-// SigninRequired 必须是登录用户
-func SigninRequired(c *gin.Context) {
-	SendErrJSON := common.SendErrJSON
-	var user model.User
-	var err error
-	if user, err = getUser(c); err != nil {
-		SendErrJSON("未登录", model.ErrorCode.LoginTimeout, c)
+// AuthRequired 必须是授权用户
+func AuthRequired(c *gin.Context) {
+	authLevel := getAuthLevel(c)
+	if authLevel < 1 {
+		c.String(http.StatusOK, "未授权")
+		c.Abort()
 		return
 	}
-	c.Set("user", user)
+	c.Set("authLevel", authLevel)
 	c.Next()
 }
 
-// EditorRequired 必须是网站编辑
+// EditorRequired 必须是可编辑
 func EditorRequired(c *gin.Context) {
-	SendErrJSON := common.SendErrJSON
-	var user model.User
-	var err error
-	if user, err = getUser(c); err != nil {
-		SendErrJSON("未登录", model.ErrorCode.LoginTimeout, c)
+	authLevel, _ := c.Get("authLevel")
+	if authLevel.(int) < 2 {
+		c.String(http.StatusOK, "未授权")
+		c.Abort()
 		return
 	}
-	if user.Role == model.UserRoleEditor || user.Role == model.UserRoleAdmin || user.Role == model.UserRoleCrawler || user.Role == model.UserRoleSuperAdmin {
-		c.Set("user", user)
-		c.Next()
-	} else {
-		SendErrJSON("没有权限", c)
-	}
+	c.Next()
 }
 
 // AdminRequired 必须是管理员
 func AdminRequired(c *gin.Context) {
-	SendErrJSON := common.SendErrJSON
-	var user model.User
-	var err error
-	if user, err = getUser(c); err != nil {
-		SendErrJSON("未登录", model.ErrorCode.LoginTimeout, c)
+	authLevel, _ := c.Get("authLevel")
+	if authLevel.(int) < 3 {
+		c.String(http.StatusOK, "未授权")
+		c.Abort()
 		return
 	}
-	if user.Role == model.UserRoleAdmin || user.Role == model.UserRoleCrawler || user.Role == model.UserRoleSuperAdmin {
-		c.Set("user", user)
-		c.Next()
-	} else {
-		SendErrJSON("没有权限", c)
-	}
-}*/
+}

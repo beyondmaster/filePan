@@ -31,11 +31,12 @@
     </a>
   </div>
   <h1 class="am-header-title">
-    中车浦镇车辆厂.rp
   </h1>
+  {{ if gt .authLevel 1 }}
   <div class="am-header-right am-header-nav">
     <i class="am-icon-ellipsis-h am-icon-sm" data-am-modal="{target: '#file-option'}"></i>
   </div>
+  {{ end }}
 </header>
 
 <div class="am-cf admin-main wj-main">
@@ -46,17 +47,16 @@
 
       <div class="file-content">
         <ul class="file-type am-text-primary">
-          <i class="am-icon-file-zip-o am-icon-lg"></i> 
+          <i class="am-icon-lg"></i> 
         </ul>
         <ul class="file-name">
-          <h1>中车浦镇车辆厂.rp</h1>
+          <h1></h1>
         </ul>
         <ul class="file-size am-link-muted">
-          313k
         </ul>
 
         <div class="download">
-          <a href="http://file.filepan.com/aaa/aboutUs.png" download type="button" class="am-btn am-btn-primary am-btn-block">开始下载
+          <a href="" download type="button" class="am-btn am-btn-primary am-btn-block">开始下载
           </a>
           <div class="am-margin-vertical-sm am-link-muted">暂不支持查看此类文件，下载后可用其他应用打开</div>
         </div>
@@ -176,8 +176,40 @@
 (function($) {
   'use strict';
 
+  function getQueryString(name) { 
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+    var r = location.search.substr(1).match(reg); 
+    if (r != null) return unescape(decodeURI(r[2])); return null; 
+  }
   $(function() {
-    
+
+    var id = getQueryString('id');
+    var stype;
+    $.get('api/file/info/'+id,function(res){
+      var data = res.data;
+      switch(data.type){
+        case 'doc':
+        case 'docx':
+        stype = 'word';break;
+        case 'png':
+        case 'jpg':
+        stype = 'photo';break;
+        case 'zip':
+        case 'rar':
+        stype = 'zip';break;
+      }
+      if(data.size > 1000000) {
+        data.size = data.size / 1000000 + 'M';
+      } else if(data.size > 1000) {
+        data.size = data.size / 1000 + 'K';
+      }
+      $('.am-header-title').text(data.name);
+      $('.file-content .file-type i').addClass('am-icon-file-'+ stype +'-o');
+      $('.file-content .file-name h1').text(data.name);
+      $('.file-content .file-size').text(data.size);
+      $('.file-content .download a').attr('href',data.link);
+      
+    });
     // 模拟数据
     var data = [
       {

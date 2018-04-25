@@ -31,20 +31,21 @@
     </a>
   </div>
   <h1 class="am-header-title">
-    需求文档
   </h1>
+  {{ if gt .authLevel 1 }} 
   <div class="am-header-right am-header-nav">
     <i class="am-icon-plus am-icon-sm" data-am-modal="{target: '#add-file'}"></i>
   </div>
+  {{ end }}
 </header>
 
 <div class="am-g wj-topbar">
   <div class="am-u-sm-12">
     <div class="am-input-group am-input-group-sm">
-      <input type="text" class="am-form-field" placeholder="搜索" />
+      <input id="search" type="text" class="am-form-field" placeholder="搜索" />
       <span class="am-input-group-btn" data-am-dropdown>
         <button class="am-btn am-icon-th-list am-dropdown-toggle" type="button"></button>
-        <ul class="am-dropdown-content">
+        <ul id="sort" class="am-dropdown-content">
           <li><a href="#">按时间</a></li>
           <li class="am-active"><a href="#">按文件大小</a></li>
           <li><a href="#">按名称</a></li>
@@ -63,142 +64,6 @@
       <div data-am-widget="list_news" class="am-list-news am-list-news-default" >
         <div class="am-list-news-bd">
           <ul class="am-list" id="fileList">
-              <li class="am-g am-list-item-dated">
-                  <a href="##" class="am-list-item-hd ">
-                    <i class="am-icon-folder am-icon-sm"></i>
-                    我很囧，你保重....晒晒旅行中的那些囧！
-                  </a>
-                  <!-- <span class="am-list-date"><i class="am-icon-ellipsis-h am-icon-sm"></i></span> -->
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-word-o am-icon-sm"></i> 
-                    Word 文档
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-zip-o am-icon-sm"></i> 
-                    中车浦镇车辆厂.rp
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-photo-o am-icon-sm"></i> 
-                    “你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="##" class="am-list-item-hd ">
-                    <i class="am-icon-folder am-icon-sm"></i>
-                    我很囧，你保重....晒晒旅行中的那些囧！
-                  </a>
-                  <!-- <span class="am-list-date"><i class="am-icon-ellipsis-h am-icon-sm"></i></span> -->
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-word-o am-icon-sm"></i> 
-                    Word 文档
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-zip-o am-icon-sm"></i> 
-                    中车浦镇车辆厂.rp
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-photo-o am-icon-sm"></i> 
-                    “你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="##" class="am-list-item-hd ">
-                    <i class="am-icon-folder am-icon-sm"></i>
-                    我很囧，你保重....晒晒旅行中的那些囧！
-                  </a>
-                  <!-- <span class="am-list-date"><i class="am-icon-ellipsis-h am-icon-sm"></i></span> -->
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-word-o am-icon-sm"></i> 
-                    Word 文档
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-zip-o am-icon-sm"></i> 
-                    中车浦镇车辆厂.rp
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-photo-o am-icon-sm"></i> 
-                    “你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="##" class="am-list-item-hd ">
-                    <i class="am-icon-folder am-icon-sm"></i>
-                    我很囧，你保重....晒晒旅行中的那些囧！
-                  </a>
-                  <!-- <span class="am-list-date"><i class="am-icon-ellipsis-h am-icon-sm"></i></span> -->
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-word-o am-icon-sm"></i> 
-                    Word 文档
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-zip-o am-icon-sm"></i> 
-                    中车浦镇车辆厂.rp
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
-              <li class="am-g am-list-item-dated">
-                  <a href="file-detail.html" class="am-list-item-hd ">
-                    <i class="am-icon-file-photo-o am-icon-sm"></i> 
-                    “你的旅行，是什么颜色？” 晒照片，换北欧梦幻极光之旅！
-                  </a>
-                  <span class="am-list-date" data-am-modal="{target: '#file-option'}">
-                    <i class="am-icon-ellipsis-h am-icon-sm"></i>
-                  </span>
-              </li>
           </ul>
         </div>
         
@@ -263,6 +128,29 @@
   </div>
 </div>
 
+<!-- 文件夹操作 -->
+<div class="am-modal-actions wj-action" id="folder-option">
+  <div class="am-modal-actions-group">
+    <div class="wj-btns am-cf">
+      <div class="wj-icon-btn rename">
+        <i class="am-icon-edit am-icon-fw"></i>
+        <div>重命名</div>
+      </div>
+      <div class="wj-icon-btn delete">
+        <i class="am-icon-trash-o am-icon-fw"></i>
+        <div>删除</div>
+      </div>
+      <div class="wj-icon-btn js-move move">
+        <i class="am-icon-arrow-circle-right am-icon-fw"></i>
+        <div>移动</div>
+      </div>
+    </div>
+  </div>
+  <div class="am-modal-actions-group">
+    <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
+  </div>
+</div>
+
 <!-- 文件操作 -->
 <div class="am-modal-actions wj-action" id="file-option">
   <div class="am-modal-actions-group">
@@ -279,15 +167,15 @@
         <i class="am-icon-wechat am-icon-fw am-text-success"></i>
         <div>微信</div>
       </div>
-      <div class="wj-icon-btn" id="rename">
+      <div class="wj-icon-btn rename">
         <i class="am-icon-edit am-icon-fw"></i>
         <div>重命名</div>
       </div>
-      <div class="wj-icon-btn" id="delete">
+      <div class="wj-icon-btn delete">
         <i class="am-icon-trash-o am-icon-fw"></i>
         <div>删除</div>
       </div>
-      <div class="wj-icon-btn" id="move">
+      <div class="wj-icon-btn move">
         <i class="am-icon-arrow-circle-right am-icon-fw"></i>
         <div>移动</div>
       </div>
@@ -323,7 +211,7 @@
   </div>
   <div class="am-modal-actions-group wj-group-btns am-cf">
       <button class="am-btn am-btn-default am-fl" data-am-modal-close>取消</button>
-      <button class="am-btn am-btn-secondary am-fr" data-am-modal-close>确定</button>
+      <button class="am-btn am-btn-secondary am-fr" data-am-modal-confirm>确定</button>
   </div>
 </div>
 
@@ -354,11 +242,17 @@
     var r = location.search.substr(1).match(reg); 
     if (r != null) return unescape(decodeURI(r[2])); return null; 
   } 
+
+  
+
   $(function() {
+
+    $('.am-header-title').text(title);
 
     var pid = getQueryString('pid');
     var fid = getQueryString('fid');
-    var id,url,name;
+    var title = getQueryString('name');
+    var id,url,name,folderId;
     if(pid) {
       id = pid;
       url = 'api/partition/list/';
@@ -373,38 +267,74 @@
     else {
       fid = 0;
     }
-    if(id) {
-      var html='',fileType;
-        $('#fileList').empty();
-        $.get(url+id,function(res){
+
+    function getPartition(sort) {
+      $.get(url+id+'/'+sort,function(res){
         if(res.errNo == 0){
+          var html='';
           for(var i in res.data) {
             switch (res.data[i].type) {
               case 'folder':
               html += '<li class="am-g am-list-item-dated">'+
-                  '<a href="detail.html?fid='+res.data[i].id+'" class="am-list-item-hd ">'+
+                  '<a href="detail.html?fid='+res.data[i].id+'&name='+ res.data[i].name +'" id='+res.data[i].id+' name="'+ res.data[i].name +'" folderId='+ res.data[i].folderId +' class="am-list-item-hd ">'+
                     '<i class="am-icon-folder am-icon-sm"></i>'+
                     res.data[i].name +
                   '</a>'+
+                  {{ if gt .authLevel 1 }} 
+                  '<span class="am-list-date" data-am-modal="{target: \'#folder-option\'}">'+
+                    '<i class="am-icon-ellipsis-h am-icon-sm am-text-secondary"></i>'+
+                  '</span>'+
+                  {{ end }}
               '</li>';
               break;
               case 'png':
+              case 'jpg':
               html += '<li class="am-g am-list-item-dated">'+
-                  '<a href="file-detail.html" id='+ res.data[i].id +' name="'+ res.data[i].name +'" class="am-list-item-hd ">'+
+                  '<a href="file-detail.html?id='+ res.data[i].id +'" id='+ res.data[i].id +' name="'+ res.data[i].name +'" folderId='+ res.data[i].folderId +' class="am-list-item-hd ">'+
                     '<i class="am-icon-file-photo-o am-icon-sm"></i>'+ 
                     res.data[i].name +
                   '</a>'+
+                  {{ if gt .authLevel 1 }} 
                   '<span class="am-list-date" data-am-modal="{target: \'#file-option\'}">'+
                     '<i class="am-icon-ellipsis-h am-icon-sm"></i>'+
                   '</span>'+
+                  {{ end }}
+              '</li>'
+              break;
+              default:
+              html += '<li class="am-g am-list-item-dated">'+
+                  '<a href="file-detail.html?id='+ res.data[i].id +'" id='+ res.data[i].id +' name="'+ res.data[i].name +'" folderId='+ res.data[i].folderId +' class="am-list-item-hd ">'+
+                    '<i class="am-icon-file-zip-o am-icon-sm"></i>'+ 
+                    res.data[i].name +
+                  '</a>'+
+                  {{ if gt .authLevel 1 }} 
+                  '<span class="am-list-date" data-am-modal="{target: \'#file-option\'}">'+
+                    '<i class="am-icon-ellipsis-h am-icon-sm"></i>'+
+                  '</span>'+
+                  {{ end }}
+              '</li>'
+              break;
+              case 'doc':
+              case 'docx':
+              html += '<li class="am-g am-list-item-dated">'+
+                  '<a href="file-detail.html?id='+ res.data[i].id +'" id='+ res.data[i].id +' name="'+ res.data[i].name +'" folderId='+ res.data[i].folderId +' class="am-list-item-hd ">'+
+                    '<i class="am-icon-file-word-o am-icon-sm"></i>'+ 
+                    res.data[i].name +
+                  '</a>'+
+                  {{ if gt .authLevel 1 }} 
+                  '<span class="am-list-date" data-am-modal="{target: \'#file-option\'}">'+
+                    '<i class="am-icon-ellipsis-h am-icon-sm"></i>'+
+                  '</span>'+
+                  {{ end }}
               '</li>'
               break;
             }
           }
-          $('#fileList').append(html);
+          $('#fileList').empty().append(html);
         }
-      })
-  }
+      });
+    }
+    getPartition(1);
 
     $('#doc-form-file').on('change', function() {
       console.log($(this)[0].files);
@@ -430,7 +360,24 @@
 
       $("#add-file").modal('close'); 
     });
-    
+
+    $('#search').on('keyup',function(){
+        if ($(this).prop('comStart')) return;
+        var text = $(this).val();
+        $('li.am-g.am-list-item-dated').each(function(){
+          if($(this).text().includes(text))
+          {
+            $(this).css('display','');
+          } else {
+            $(this).css('display','none');
+          }
+        });
+    }).on('compositionstart', function () {
+        $(this).prop('comStart', true);
+    }).on('compositionend', function () {
+        $(this).prop('comStart', false);
+    });
+
     $("#add-folder-btn").on("click", function(){
       $("#add-file").modal('close');
       $("#add-folder").modal({
@@ -438,12 +385,7 @@
         onConfirm: function(e) {
           if(e.data){
             $.get('api/folder/add/'+pid+'/'+fid+'/'+e.data,function(){
-                $('#fileList').append('<li class="am-g am-list-item-dated">'+
-                  '<a href="file-detail.html" class="am-list-item-hd ">'+
-                    '<i class="am-icon-folder am-icon-sm"></i>'+
-                    e.data +
-                  '</a>'+
-              '</li>');
+                location.reload();
               });
           }else{
             alert('文件夹名字不能为空！');
@@ -455,77 +397,124 @@
       });
     });
 
-    // 模拟数据
-    var data = [
-    {
-      title: '苹果公司',
-      type: 'folder',
-      products: [
-        {
-          title: 'iPhone',
-          type: 'item'
-        },
-        {
-          title: 'iMac',
-          type: 'item'
-        },
-        {
-          title: 'MacBook Pro',
-          type: 'item'
-        }
-      ]
-    },
-    {
-      title: '微软公司',
-      type: 'item'
-    },
-    {
-      title: 'GitHub',
-      type: 'item',
-      attr: {
-        icon: 'am-icon-github'
-      }
-    }
-  ];
-  $('#firstTree').tree({
+    $('#firstTree').tree({
       dataSource: function(options, callback) {
         // 模拟异步加载
         setTimeout(function() {
-          callback({data: options.products || data});
+          var url;
+          if(options.attr) {
+            url = 'api/folder/tree/'+ options.attr.partitionId + '/' + options.attr.id;
+          } else if (pid) {
+            url = 'api/folder/tree/'+ pid + '/-1';
+          } else {
+            url = 'api/folder/tree/0/' + fid;
+          }
+            $.get(url, function(res) {
+              if (res.errNo == 0) {
+                var folderData = [];
+                for (var i in res.data) {
+                  if(res.data[i].id == id) continue;
+                  folderData.push({
+                    "title": res.data[i].title,
+                    "type": res.data[i].type,
+                    "attr": {
+                      "id": res.data[i].id,
+                      "partitionId": res.data[i].partitionId
+                    }
+                  })
+                }
+                callback({
+                  data: folderData
+                });
+              }
+            });
         }, 10);
       },
       multiSelect: false,
-      cacheItems: true,
+      cacheItems: false,
       folderSelect: true
     });
 
-  $("#move").on("click", function(){      
-    $("#file-option").modal('close');
-    $("#choose-folder").modal('open');    
-  });
+    $("#sort li").on("click", function() {
+      getPartition($(this).index() + 1);
+      $(this).parent().parent().dropdown('close');
+    });
+
+    $("#folder-option .move,#file-option .move").on("click", function() {
+      var sid = $(this).closest('.am-modal-actions').attr('id');
+      var fileType;
+      if(sid == 'file-option') {
+        fileType = 'file';
+      } else {
+        fileType = 'folder';
+      }
+      $('#' + sid).modal('close');
+      $('#firstTree').tree('closeAll');
+      $("#choose-folder").modal({
+        relatedTarget: this,
+        onConfirm: function(e) {
+          var item = $('#firstTree').tree('selectedItems');
+          if (item.length) {
+            if(item[0].attr.id == folderId) {
+              alert('无需移动，请选择其它位置！');
+              return;
+            }
+            $.get('api/'+fileType+'/move/' + id + '/' + item[0].attr.id, function() {
+              location.reload();
+            });
+          } else {
+            alert('请选择移动位置！');
+          }
+        },
+        onCancel: function(e) {
+
+        }
+      });
+    });
 
   $('span.am-list-date').live('click',function(){
     id = $(this).parent().find('a').attr('id');
     name = $(this).parent().find('a').attr('name');
+    folderId = $(this).parent().find('a').attr('folderId');
   });
 
-  $("#delete").on("click", function(){
+  $("#folder-option .delete,#file-option .delete").on("click", function(){
+    var sid = $(this).closest('.am-modal-actions').attr('id');
+    var url;
+    if(sid == 'folder-option') {
+      url = 'api/folder/delete/';
+    }
+    else {
+      url = 'api/file/delete/';
+    }
     if(confirm('确认删除？'))
     {
-      $.get('api/file/delete/'+id,function(){
+      $.get(url+id,function(){
           location.reload();
       }); 
     }  
   });
 
-  $("#rename").on("click", function(){
-     $("#file-option").modal('close');
+  $("#folder-option .rename,#file-option .rename").on("click", function(){
+    var sid = $(this).closest('.am-modal-actions').attr('id');
+    var url,title;
+    if(sid == 'file-option'){
+      url = 'api/file/update/';
+      title = '文件重命名';
+    }
+    else {
+      url = 'api/folder/update/';
+      title = '文件夹重命名';
+    }
+    // console.log(sid);
+     $('#'+sid).modal('close');
+     $("#edit-file .am-modal-hd").text(title);
      $("#edit-file input").val(name);
      $("#edit-file").modal({
       relatedTarget: this,
         onConfirm: function(e) {
           if(e.data){
-            $.get('api/file/update/'+id+'/'+e.data,function(){
+            $.get(url+id+'/'+e.data,function(){
                 location.reload();
               });
           }else{

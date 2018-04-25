@@ -3,16 +3,48 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
+	"net/http"
 	"os"
+	"time"
 
 	"filePan/config"
 	"filePan/model"
 	"filePan/router"
 	_ "github.com/denisenkom/go-mssqldb"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/sync/errgroup"
+)
+
+var (
+	g errgroup.Group
 )
 
 func main() {
+	webServer := &http.Server{
+		Addr:         ":" + fmt.Sprintf("%d", config.ServerConfig.Port),
+		Handler:      webHandler(),
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+	fileServer := &http.Server{
+		Addr:         ":" + fmt.Sprintf("%d", config.ServerConfig.FilePort),
+		Handler:      fileHandler(),
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+	g.Go(func() error {
+		return webServer.ListenAndServe()
+	})
+	g.Go(func() error {
+		return fileServer.ListenAndServe()
+	})
+	if err := g.Wait(); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func webHandler() http.Handler {
 	fmt.Println("gin.Version: ", gin.Version)
 	if config.ServerConfig.Env != model.DevelopmentMode {
 		// Disable Console Color, you don't need console color when writing the logs to file.
@@ -43,5 +75,13 @@ func main() {
 
 	router.Route(app)
 
-	app.Run(":" + fmt.Sprintf("%d", config.ServerConfig.Port))
+	return app
+}
+
+func fileHandler() http.Handler {
+	e := gin.New()
+	e.Use(gin.Recovery())
+	e.Static("/", config.ServerConfig.FilePanDir)
+
+	return e
 }

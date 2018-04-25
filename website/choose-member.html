@@ -24,16 +24,16 @@
 
 <header class="am-header am-header-default">
   <div class="am-header-left am-header-nav">
-    <a href="accredit.html" class="">
+    <a href="javascript:history.go(-1);" class="">
       <i class="am-header-icon am-icon-angle-left"></i>
-      取消
+      返回
     </a>
   </div>
   <h1 class="am-header-title">
     选择成员
   </h1>
   <div class="am-header-right am-header-nav">
-    <a href="accredit.html" class="">
+    <a class="" id="finish">
       完成
     </a>
   </div>
@@ -42,10 +42,10 @@
 <div class="am-g wj-topbar">
   <div class="am-u-sm-12">
     <div class="am-input-group am-input-group-sm">
-      <input type="text" class="am-form-field" placeholder="搜索" />
       <span class="am-input-group-btn" data-am-dropdown>
         <button class="am-btn am-icon-check-square-o" type="button"> 全选</button>
       </span>
+      <input type="text" class="am-form-field" placeholder="搜索" />
     </div>
   </div>
 </div>
@@ -58,100 +58,16 @@
 
       <div data-am-widget="list_news" class="am-list-news am-list-news-default" >
         <div class="am-list-news-bd">
-          <ul class="am-list">
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" checked="checked" data-am-ucheck> 
-                  <img src="assets/i/examples/01.jpg" alt="" class="am-check-avatar" />
-                  成员1
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" checked="checked" data-am-ucheck> 
-                  <img src="assets/i/examples/02.jpg" alt="" class="am-check-avatar" />
-                  成员2
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" checked="checked" data-am-ucheck> 
-                  <img src="assets/i/examples/03.jpg" alt="" class="am-check-avatar" />
-                  成员3
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" data-am-ucheck> 
-                  <img src="assets/i/examples/01.jpg" alt="" class="am-check-avatar" />
-                  成员4
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" data-am-ucheck> 
-                  <img src="assets/i/examples/02.jpg" alt="" class="am-check-avatar" />
-                  成员5
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" data-am-ucheck> 
-                  <img src="assets/i/examples/03.jpg" alt="" class="am-check-avatar" />
-                  成员6
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" data-am-ucheck> 
-                  <img src="assets/i/examples/01.jpg" alt="" class="am-check-avatar" />
-                  成员4
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" data-am-ucheck> 
-                  <img src="assets/i/examples/02.jpg" alt="" class="am-check-avatar" />
-                  成员5
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" data-am-ucheck> 
-                  <img src="assets/i/examples/03.jpg" alt="" class="am-check-avatar" />
-                  成员6
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" data-am-ucheck> 
-                  <img src="assets/i/examples/01.jpg" alt="" class="am-check-avatar" />
-                  成员4
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" data-am-ucheck> 
-                  <img src="assets/i/examples/02.jpg" alt="" class="am-check-avatar" />
-                  成员5
-                </label>
-              </li>
-              <li class="am-g am-list-item-dated">
-                <label class="am-checkbox am-secondary">
-                  <input type="checkbox" value="" data-am-ucheck> 
-                  <img src="assets/i/examples/03.jpg" alt="" class="am-check-avatar" />
-                  成员6
-                </label>
-              </li>
+          <ul class="am-list" id="member">
           </ul>
         </div>
 
-        <div class="wj-fixed-bottom">
+        <!-- <div class="wj-fixed-bottom">
           <button type="button" class="am-btn am-btn-success am-btn-block">
             <i class="am-icon-check am-icon-fw"></i> 
             完成
           </button>
-        </div>
+        </div> -->
 
       </div>
 
@@ -207,11 +123,73 @@
 (function($) {
   'use strict';
 
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = location.search.substr(1).match(reg);
+    if (r != null) return unescape(decodeURI(r[2]));
+    return null;
+  }
+
+  var pid = getQueryString('id');
+
   $(function() {
-    
-    $("#my-actions a").on("click", function(){
-      $("#my-actions").modal('close'); 
+
+    $.get('api/user/list/0', function(res) {
+      if (res.errNo == 0) {
+        var html = '';
+        for (var i in res.user) {
+          html += '<li class="am-g am-list-item-dated" id=' + res.user[i].userid + '>' +
+            '<label class="am-checkbox am-secondary">' +
+            '<input type="checkbox" value="" data-am-ucheck>' +
+            '<img src="' + res.user[i].avatar + '" alt="" class="am-check-avatar" />' +
+            res.user[i].name +
+            '</label>' +
+            '</li>';
+        }
+        $('#member').append(html);
+        $.get('api/authority/member/' + pid, function(res) {
+          if (res.errNo == 0) {
+            var html = '';
+            for (var i in res.data) {
+              $('#' + res.data[i].id).addClass('exist');
+              $('#' + res.data[i].id + ' input:checkbox').prop("checked", true)
+            }
+          }
+        });
+      }
     });
+    $("#my-actions a").on("click", function() {
+      $("#my-actions").modal('close');
+    });
+
+    $('#member li input:checkbox').live('change', function() {
+      if ($(this).closest('li').hasClass('exist')) {
+        $(this).closest('li').toggleClass('delete');
+      } else {
+        $(this).closest('li').toggleClass('add');
+      }
+    });
+    $("#finish").on("click", function() {
+      var data = [];
+      $('#member li.delete,#member li.add').each(function() {
+        data.push({
+          "id": $(this).attr("id"),
+          "name": $(this).find('label').text(),
+          "avatar": $(this).find('img').attr('src'),
+          "oper": $(this).hasClass('add') ? 'add' : 'delete'
+        });
+      });
+
+      if (data.length) {
+        $.post('api/authority/updateMember', JSON.stringify({
+          "partitionId": pid,
+          "user": data
+        }), function(res) {
+
+        }, 'json');
+      }
+      location.href = "accredit.html?id="+pid;
+    })
 
   });
 })(jQuery);

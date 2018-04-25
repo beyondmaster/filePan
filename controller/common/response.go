@@ -3,7 +3,7 @@ package common
 import (
 	"net/http"
 
-	"github.com/beyondmaster/filePan/model"
+	"filePan/model"
 	"github.com/gin-gonic/gin"
 )
 

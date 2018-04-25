@@ -11,7 +11,7 @@
 	margin-top: 0;
 }
 .wj-main .am-list{
-	padding-bottom: 4rem;
+	padding-bottom: 8rem;
 }
 .wj-main .am-list .am-list-item-dated a.am-list-item-hd .am-icon-sm{
 	color: #0e90d2;
@@ -101,7 +101,7 @@
 }
 .wj-btns{
 	background: #F0F0F0;
-	padding: 2rem 1rem;
+	padding: 1rem;
 }
 .wj-btns .wj-icon-btn{	
 	box-sizing: border-box;
@@ -111,13 +111,14 @@
 	font-size: 12px;
 	text-align: center;
 	width: 48px;
+	cursor: pointer;
 }
 .wj-btns .wj-icon-btn .am-icon-fw{
 	width: 48px;
 	height: 48px;
 	border-radius: 5px;
 	background: #fff;
-	font-size: 24px;
+	font-size: 28px;
 	line-height: 48px;
 	margin-bottom: 5px;
 	clear: both;
@@ -148,4 +149,7 @@
 }
 .wj-group-btns .am-btn{
 	width: 48%;
+}
+.am-icon-sm{
+	cursor: pointer;
 }
